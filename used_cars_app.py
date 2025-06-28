@@ -47,9 +47,22 @@ st.subheader("🚘 Price by Vehicle Type")
 fig_box = px.box(df, x='vehicleType', y='price', color='vehicleType', title="Boxplot by Vehicle Type")
 st.plotly_chart(fig_box)
 
+df_scatter = df.dropna(subset=['car_age', 'price', 'gearbox', 'powerPS'])
+
+# Filter for valid powerPS values
+df_scatter = df.dropna(subset=['car_age', 'price', 'gearbox', 'powerPS'])
+df_scatter = df_scatter[df_scatter['powerPS'] > 0]  # remove negative or zero powerPS
+
 st.subheader("📉 Price vs. Car Age")
-fig_scatter = px.scatter(df, x='car_age', y='price', color='gearbox', size='powerPS',
-                         title="Price vs. Car Age (colored by gearbox, sized by powerPS)", opacity=0.6)
+fig_scatter = px.scatter(
+    df_scatter,
+    x='car_age',
+    y='price',
+    color='gearbox',
+    size='powerPS',
+    title="Price vs. Car Age (colored by gearbox, sized by powerPS)",
+    opacity=0.6
+)
 st.plotly_chart(fig_scatter)
 
 st.subheader("🏷️ Most Common Car Models")
