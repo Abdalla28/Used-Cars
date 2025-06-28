@@ -49,9 +49,10 @@ st.plotly_chart(fig_box)
 
 df_scatter = df.dropna(subset=['car_age', 'price', 'gearbox', 'powerPS'])
 
-# Filter for valid powerPS values
 df_scatter = df.dropna(subset=['car_age', 'price', 'gearbox', 'powerPS'])
-df_scatter = df_scatter[df_scatter['powerPS'] > 0]  # remove negative or zero powerPS
+
+# Remove rows with non-positive or unrealistic powerPS
+df_scatter = df_scatter[df_scatter['powerPS'] > 0]
 
 st.subheader("📉 Price vs. Car Age")
 fig_scatter = px.scatter(
