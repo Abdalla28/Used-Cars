@@ -51,6 +51,15 @@ df_scatter = df.dropna(subset=['car_age', 'price', 'gearbox', 'powerPS'])
 
 df_scatter = df.dropna(subset=['car_age', 'price', 'gearbox', 'powerPS'])
 
+st.subheader("🏷️ Most Common Car Models")
+model_counts = df['model'].value_counts().head(10)
+st.bar_chart(model_counts)
+
+st.subheader("⛽ Fuel Type Distribution")
+fuel_counts = df['fuelType'].value_counts()
+fig_fuel = px.pie(values=fuel_counts.values, names=fuel_counts.index, title="Fuel Type Share")
+st.plotly_chart(fig_fuel)
+
 # Remove rows with non-positive or unrealistic powerPS
 df_scatter = df_scatter[df_scatter['powerPS'] > 0]
 
@@ -66,14 +75,6 @@ fig_scatter = px.scatter(
 )
 st.plotly_chart(fig_scatter)
 
-st.subheader("🏷️ Most Common Car Models")
-model_counts = df['model'].value_counts().head(10)
-st.bar_chart(model_counts)
-
-st.subheader("⛽ Fuel Type Distribution")
-fuel_counts = df['fuelType'].value_counts()
-fig_fuel = px.pie(values=fuel_counts.values, names=fuel_counts.index, title="Fuel Type Share")
-st.plotly_chart(fig_fuel)
 
 st.markdown("---")
 st.caption("Made by Abdalla Gamal | Streamlit App for Cleaned Used Cars Dataset 🚗")
